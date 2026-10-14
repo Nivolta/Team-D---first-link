@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f8fa" />
+    <title>People desk</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <script src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/app" aria-label="People desk home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M7 23.5 13.8 8h4.4L25 23.5h-5L16 13.2l-4 10.3H7Z" fill="currentColor" />
+              <path d="M12.5 20h7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" />
+            </svg>
+          </span>
+          <span class="brand-name">people<span>desk</span></span>
+        </a>
+
+        <p class="nav-label">WORKSPACE</p>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <button class="nav-item active" type="button" data-view="employees" aria-current="page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20m6-9a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm10 9v-1.5a3.5 3.5 0 0 0-2.8-3.43M16 3.15a4 4 0 0 1 0 7.7" /></svg>
+            <span>Employees</span>
+            <span class="nav-count" id="employee-nav-count">—</span>
+          </button>
+          <button class="nav-item" type="button" data-view="requests">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.75h7l4 4V20a.25.25 0 0 1-.25.25h-10.5A.25.25 0 0 1 7 20V4a.25.25 0 0 1 .25-.25ZM14 4v4h4M10 12h5m-5 3h5" /></svg>
+            <span>Requests</span>
+            <span class="nav-count" id="request-nav-count">—</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="help-card">
+            <span class="help-icon" aria-hidden="true">?</span>
+            <div><strong>Need a hand?</strong><span>Explore the API docs</span></div>
+            <a href="/docs" aria-label="Open API documentation">↗</a>
+          </div>
+          <div class="profile">
+            <span class="avatar avatar-admin">PD</span>
+            <span class="profile-copy"><strong>People desk</strong><span>Workspace</span></span>
+            <span class="profile-menu" aria-hidden="true">···</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Workspace</span><span class="crumb-separator">/</span><strong id="breadcrumb-current">Employees</strong></div>
+          <div class="topbar-actions">
+            <span class="connection"><span class="connection-dot" id="connection-dot"></span><span id="connection-label">Connecting to API</span></span>
+            <a class="docs-button" href="/docs" title="Open API documentation" aria-label="Open API documentation">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 13v5.5a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5V13" /></svg>
+            </a>
+            <span class="avatar avatar-top" aria-label="People desk">P</span>
+          </div>
+        </header>
+
+        <section class="page-content">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">YOUR PEOPLE, AT A GLANCE</p>
+              <h1 id="page-title">Employees</h1>
+              <p class="page-subtitle" id="page-subtitle">A simple, clear view of your employee directory.</p>
+            </div>
+            <button type="button" class="button button-secondary" id="refresh-button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.7-3L4 10m0-5v5h5m-5 3a8 8 0 0 0 14.7 3L20 14m0 5v-5h-5" /></svg>
+              Refresh data
+            </button>
+          </div>
+
+          <div class="notice" id="api-notice" role="status" hidden>
+            <span class="notice-symbol" aria-hidden="true">!</span>
+            <span id="api-notice-text"></span>
+            <a href="/docs">Open API docs <span aria-hidden="true">↗</span></a>
+            <button type="button" class="notice-close" id="notice-close" aria-label="Dismiss message">×</button>
+          </div>
+
+          <section class="stats-grid" aria-label="Directory overview">
+            <article class="stat-card">
+              <div class="stat-top"><span>Total employees</span><span class="stat-icon purple"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20m6-9a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm10 9v-1.5a3.5 3.5 0 0 0-2.8-3.43M16 3.15a4 4 0 0 1 0 7.7" /></svg></span></div>
+              <div class="stat-value" id="employee-total">—</div>
+              <div class="stat-foot"><span class="stat-foot-dot"></span>Live directory data</div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span>Total requests</span><span class="stat-icon blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.75h7l4 4V20a.25.25 0 0 1-.25.25h-10.5A.25.25 0 0 1 7 20V4a.25.25 0 0 1 .25-.25ZM14 4v4h4M10 12h5m-5 3h5" /></svg></span></div>
+              <div class="stat-value" id="request-total">—</div>
+              <div class="stat-foot"><span class="stat-foot-dot blue-dot"></span>Across all request records</div>
+            </article>
+            <article class="stat-card stat-card-note">
+              <div class="stat-note-mark" aria-hidden="true">✳</div>
+              <div><strong>Everything in one place.</strong><p>Browse people and look up requests by requester and employee ID.</p></div>
+            </article>
+          </section>
+
+          <section class="directory-panel" id="employee-view">
+            <div class="panel-heading">
+              <div>
+                <h2>Employee directory</h2>
+                <p id="employee-description">Browse and search employee records.</p>
+              </div>
+              <label class="search-box" for="employee-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5" /></svg>
+                <input id="employee-search" type="search" placeholder="Search employees..." autocomplete="off" />
+                <kbd>⌘ K</kbd>
+              </label>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>EMPLOYEE</th><th>EMPLOYEE ID</th><th>RECORD DETAILS</th><th></th></tr></thead>
+                <tbody id="employee-table-body"><tr><td colspan="4" class="loading-cell"><span class="spinner"></span>Loading employee records…</td></tr></tbody>
+              </table>
+            </div>
+            <div class="panel-footer"><span id="employee-result-count">Loading records</span><button type="button" class="text-button" id="employee-retry">Reload records <span aria-hidden="true">↻</span></button></div>
+          </section>
+
+          <section class="directory-panel request-panel" id="request-view" hidden>
+            <div class="panel-heading request-heading">
+              <div>
+                <h2>Request lookup</h2>
+                <p>Find a request using its requester and employee IDs.</p>
+              </div>
+            </div>
+            <form id="request-form" class="lookup-form">
+              <label>Requester ID<input name="requester_id" inputmode="numeric" placeholder="e.g. 1001" required /></label>
+              <span class="lookup-divider" aria-hidden="true">→</span>
+              <label>Employee ID<input name="employee_id" placeholder="e.g. E-102" required /></label>
+              <button class="button button-primary" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5" /></svg>Find request</button>
+            </form>
+            <div class="request-result" id="request-result" aria-live="polite">
+              <div class="empty-lookup">
+                <span class="empty-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.75h7l4 4V20a.25.25 0 0 1-.25.25h-10.5A.25.25 0 0 1 7 20V4a.25.25 0 0 1 .25-.25ZM14 4v4h4M10 12h5m-5 3h5" /></svg></span>
+                <strong>Ready when you are</strong>
+                <p>Enter both IDs above to find a matching request.</p>
+              </div>
+            </div>
+            <div class="panel-footer"><span id="request-total-label">Request records are loaded from the API.</span></div>
+            <div class="request-records" id="request-records"></div>
+          </section>
+
+          <footer class="page-footer"><span>People desk <span class="footer-dot">·</span> Internal workspace</span><span>Data is provided by your API <span class="footer-dot">·</span> <a href="/docs">API documentation</a></span></footer>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
